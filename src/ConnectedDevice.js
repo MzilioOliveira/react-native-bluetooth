@@ -84,8 +84,8 @@ const ConnectedDevice = ({item}) => {
       charasteristicUUID,
       payloadBytes,
     )
-      .then((res) => {
-        console.log('write response', res);
+      .then(() => {
+        console.log('writed');
       })
       .catch((error) => {
         console.log('write err', error);

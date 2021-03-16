@@ -142,6 +142,14 @@ const Bluetooth = () => {
       });
   };
 
+  const checkState = (state) => {
+    console.log(state);
+  };
+
+  useEffect(() => {
+    BleManager.checkState();
+  }, []);
+
   useEffect(() => {
     BleManager.start({showAlert: false});
 
@@ -154,6 +162,7 @@ const Bluetooth = () => {
       'BleManagerDisconnectPeripheral',
       handleDisconnectedPeripheral,
     );
+    bleEmitter.addListener('BleManagerDidUpdateState', checkState);
 
     return () => {
       bleEmitter.removeListener(
@@ -165,6 +174,7 @@ const Bluetooth = () => {
         'BleManagerDisconnectPeripheral',
         handleDisconnectedPeripheral,
       );
+      bleEmitter.removeListener('BleManagerDidUpdateState', checkState);
     };
   }, [handleDisconnectedPeripheral, handleDiscoverPeripheral]);
 
